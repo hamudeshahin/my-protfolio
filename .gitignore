@@ -5,6 +5,13 @@
 /.pnp
 .pnp.js
 
+
+# sanity files
+sanity-app/node_modules
+sanity-app/dist
+sanity-app/sanity.config.ts
+sanity-app/sanity.cli.ts
+
 # testing
 /coverage
 

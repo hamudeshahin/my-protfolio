@@ -1,86 +1,179 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
+import type { NextPage } from "next";
+import Head from "next/head";
+import { BsArrowRight } from "react-icons/bs";
+import { useEffect, useRef } from "react";
+import SolidWave from "../components/solid-wave";
+import A from "../components/ui/link";
+import Container from "../components/utils/container";
+import SocialLink from "../components/utils/social-links";
+import WaveYellow from "../components/wave-yellow";
+import AboutMeBox from "../components/utils/about-me-box";
+
+const links: string[] = ["fa", "tw", "in", "is"];
 
 const Home: NextPage = () => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    import("@lottiefiles/lottie-player");
+  }, []);
+
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
+    <>
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
-
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="rounded-md bg-gray-100 p-3 font-mono text-lg">
-            pages/index.tsx
-          </code>
-        </p>
-
-        <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and its API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+      <div className="h-screen pt-16 relative overflow-hidden">
+        <div className="w-full h-screen transform rotate-45">
+          <lottie-player
+            id="hi"
+            ref={ref}
+            autoplay
+            loop
+            mode="normal"
+            src={"https://assets10.lottiefiles.com/packages/lf20_r2l0zvvj.json"}
+          />
         </div>
-      </main>
 
-      <footer className="flex h-24 w-full items-center justify-center border-t">
-        <a
-          className="flex items-center justify-center gap-2"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-        </a>
-      </footer>
-    </div>
-  )
-}
+        <div className="absolute top-1/2 -translate-y-1/2 left-[10%] z-30">
+          <h2 className="text-5xl md:text-6xl lg:text-7xl">
+            I'm <span className="text-yellow-500">Hamude Shahin</span>.
+          </h2>
+          <p className="text-slate-400 max-w-md">
+            Fullstack Developer. React/ReactNative | Node.js | MongoDB |
+            TypeScript
+          </p>
+        </div>
+        <div className="absolute top-1/2 -translate-y-1/2 left-[1%] sm:left-[5%] z-30">
+          <ul className="flex flex-col space-y-10">
+            {links.map((link, index) => (
+              <li className="transform -rotate-90">
+                <SocialLink key={index}>{link}</SocialLink>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <WaveYellow />
+        <SolidWave />
+      </div>
 
-export default Home
+      {/* Experiences */}
+      <div className="py-10 bg-slate-700">
+        <Container>
+          <h2 className="text-slate-400 text-2xl ml-10">Experiences:</h2>
+          <div className="grid grid-cols-6 sm:grid-cols-6 my-10">
+            <img
+              className="w-full h-48 object-contain"
+              src="/imgs/typescript.png"
+              alt=""
+            />
+            <img
+              className="w-full h-48 object-contain"
+              src="/imgs/typescript.png"
+              alt=""
+            />
+            <img
+              className="w-full h-48 object-contain"
+              src="/imgs/typescript.png"
+              alt=""
+            />
+            <img
+              className="w-full h-48 object-contain"
+              src="/imgs/typescript.png"
+              alt=""
+            />
+            <img
+              className="w-full h-48 object-contain"
+              src="/imgs/typescript.png"
+              alt=""
+            />
+            <img
+              className="w-full h-48 object-contain"
+              src="/imgs/typescript.png"
+              alt=""
+            />
+          </div>
+          <div className="text-center">
+            <A href={"/"}>
+              Learn More <BsArrowRight style={{ display: "inline" }} />{" "}
+            </A>
+          </div>
+        </Container>
+      </div>
+
+      {/* About Me */}
+      <div className="py-10 bg-slate-700">
+        <Container>
+          <div className="grid grid-cols-2 space-x-5">
+            <div className="p-2 col-span-2 md:col-span-1 bg-[url('/svgs/bg-about-me.svg')]">
+              <div className="relative h-96 w-full sm:w-[70%] mx-auto my-24">
+                <AboutMeBox
+                  title="Years Old"
+                  color="red"
+                  className="absolute right-10 top-2"
+                >
+                  23
+                </AboutMeBox>
+                <AboutMeBox
+                  title="Projects Done"
+                  color="green"
+                  className="absolute left-10  top-1/2 transform -translate-y-1/2"
+                  plusIcon={true}
+                >
+                  14
+                </AboutMeBox>
+                <AboutMeBox
+                  title="Projects Done"
+                  color="yellow"
+                  className="absolute right-10 bottom-2"
+                >
+                  12
+                </AboutMeBox>
+              </div>
+            </div>
+            <div className="p-2 col-span-2 md:col-span-1">
+              <h2 className="text-4xl before:content['']  before:inline-block before:w-4 before:h-4 before:bg-white pl-5 relative before:absolute before:transform before:top-3 before:animate-bounce before:left-0">
+                About Me
+              </h2>
+              <p className="text-1xl text-slate-400">
+                Hi there!. I am Fullstack Developer with 3 years experience. I
+                have been worked on such of projects like E-commerce, Company
+                Sites, Portfolios and Accounting Web Apps. <br />
+                Currently, i am studying Computer Engineering at Harran
+                University in Turkey.
+              </p>
+              <div className="p-10 ">
+                <h3 className="text-2xl relative before:content-['🛑'] before:absolute before:-left-8">
+                  Personal Goals
+                </h3>
+                <ul className="list-decimal">
+                  <li>Frontend Developer {"(React/Next.js)"}</li>
+                  <li>Backend Developer {"(Node.js/Experss.js/MongoDB)"}</li>
+                  <li>Mobile Developer {"(React-Native)"}</li>
+                  <li>Libectro {"\u{1F603}"}</li>
+                  <li>Finish University {"(Computer Engineering)"}</li>
+                </ul>
+              </div>
+              <div className="p-10 ">
+                <h3 className="text-2xl relative before:content-['✅'] before:absolute before:-left-8">
+                  Goals Done
+                </h3>
+                <ul className="list-decimal">
+                  <li>Frontend Developer {"(React/Next.js)"}</li>
+                  <li>Backend Developer {"(Node.js/Experss.js/MongoDB)"}</li>
+                  <li>Mobile Developer {"(React-Native)"}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </div>
+
+      {/* Projects */}
+    </>
+  );
+};
+
+export default Home;
