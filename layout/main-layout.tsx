@@ -8,7 +8,7 @@ interface Props {
 
 const MainLayout: FC<Props> = ({ children }) => {
   return (
-    <div className="relative">
+    <div className="relative overflow-hidden">
       <Navbar />
       <main className="relative z-0">{children}</main>
       <Blob />
