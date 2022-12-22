@@ -1,5 +1,6 @@
 import { FC, ReactNode } from "react";
 import Blob from "../components/blob";
+import Footer from "./footer";
 import Navbar from "./navbar";
 
 interface Props {
@@ -12,6 +13,7 @@ const MainLayout: FC<Props> = ({ children }) => {
       <Navbar />
       <main className="relative z-0">{children}</main>
       <Blob />
+      <Footer />
     </div>
   );
 };

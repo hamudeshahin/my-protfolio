@@ -24,7 +24,7 @@ const ProjectItem: FC<IPropsProjects> = ({ items, active }) => {
         alt=""
         className="object-cover w-full h-96"
       />
-      <div className="p-10 flex items-center">
+      <div className="p-4 sm:p-5 md:p-10 flex items-center">
         {items.map((item, index) => (
           <div
             className={`flex-1 grid grid-cols-1 md:grid-cols-3 space-x-4 ${

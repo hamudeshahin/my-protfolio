@@ -14,7 +14,7 @@ const Projects: FC<IProps> = ({ items }) => {
     setActive(num);
   }, []);
   return (
-    <div className="bg-slate-700 py-5">
+    <div className="bg-slate-700 py-20">
       <Container>
         <div className="rounded-lg bg-slate-800 p-5">
           <h2 className="text-4xl text-center mb-5 before:content-['🤓'] before:transform before:-translate-y-1/2 before:top-1/2 before:left-0">
@@ -37,12 +37,12 @@ const Projects: FC<IProps> = ({ items }) => {
                   }}
                 >
                   <span
-                    className={`flex justify-center items-center border w-10 h-10 
+                    className={`flex justify-center items-center border  w-10 h-10 
                     ${
                       index === active
-                        ? "bg-yellow-500 text-white"
-                        : "text-yellow-500"
-                    } border-yellow-500 transform -rotate-90`}
+                        ? "border-yellow-500 text-yellow-500"
+                        : "text-white border-transparent"
+                    }  transform -rotate-90`}
                   >
                     0{index + 1}.
                   </span>

@@ -4,6 +4,7 @@ export interface IButton {
   children?: ReactNode | string | null | undefined;
   type?: "primary" | "error" | "warning";
   className?: string;
+  onClick?: func;
 }
 
 export interface ILink {

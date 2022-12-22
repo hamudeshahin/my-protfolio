@@ -8,8 +8,10 @@ import Container from "../components/utils/container";
 import SocialLink from "../components/utils/social-links";
 import WaveYellow from "../components/wave-yellow";
 import AboutMeBox from "../components/utils/about-me-box";
-import Blob from "../components/blob";
+
 import Projects from "../components/sections/projects";
+import References from "../components/sections/references";
+import Connect from "../components/sections/connect";
 
 const links: string[] = ["fa", "tw", "in", "is"];
 
@@ -193,6 +195,25 @@ const Home: NextPage = () => {
           },
         ]}
       />
+
+      {/* References */}
+      <References
+        items={[
+          {
+            name: "Adam Adam",
+            description:
+              "Hamude's talent and cares for his work delivered excellent results on all aspects of our project.",
+          },
+          {
+            name: "Adam2 Adam2",
+            description:
+              "Hamude's talent and cares for his work delivered excellent or his work delivered excellent results on all aspects of our project. talent and cares for his work delivered excellent results on all aspects of our project.",
+          },
+        ]}
+      />
+
+      {/* Connect */}
+      <Connect />
     </>
   );
 };

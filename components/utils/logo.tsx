@@ -53,7 +53,7 @@ const Logo: FC = () => {
   );
 
   return (
-    <h2 className="relative">
+    <h2 className="relative w-fit">
       <animated.div
         style={{ ...firstLetterStls, position: "absolute", top: 0 }}
       >
