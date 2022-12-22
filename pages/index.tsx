@@ -8,6 +8,8 @@ import Container from "../components/utils/container";
 import SocialLink from "../components/utils/social-links";
 import WaveYellow from "../components/wave-yellow";
 import AboutMeBox from "../components/utils/about-me-box";
+import Blob from "../components/blob";
+import Projects from "../components/sections/projects";
 
 const links: string[] = ["fa", "tw", "in", "is"];
 
@@ -60,9 +62,9 @@ const Home: NextPage = () => {
       </div>
 
       {/* Experiences */}
-      <div className="py-10 bg-slate-700">
+      <div className="py-10 bg-slate-700 relative">
         <Container>
-          <h2 className="text-slate-400 text-2xl ml-10">Experiences:</h2>
+          <h2 className="text-slate-400 text-2xl ml-10 z-40">Experiences:</h2>
           <div className="grid grid-cols-6 sm:grid-cols-6 my-10">
             <img
               className="w-full h-48 object-contain"
@@ -125,11 +127,12 @@ const Home: NextPage = () => {
                   14
                 </AboutMeBox>
                 <AboutMeBox
-                  title="Projects Done"
+                  title="Years Of Experience"
                   color="yellow"
                   className="absolute right-10 bottom-2"
+                  plusIcon={true}
                 >
-                  12
+                  4
                 </AboutMeBox>
               </div>
             </div>
@@ -172,6 +175,24 @@ const Home: NextPage = () => {
       </div>
 
       {/* Projects */}
+      <Projects
+        items={[
+          {
+            img: "/imgs/medium.png",
+            name: "Medium Clone",
+            startDate: "Start Date",
+            endDate: "End Date",
+            role: "Fullstack Dev.",
+          },
+          {
+            img: "/imgs/typescript.png",
+            name: "Typescript Clone",
+            startDate: "Start Date",
+            endDate: "End Date",
+            role: "Fullstack Dev.",
+          },
+        ]}
+      />
     </>
   );
 };
