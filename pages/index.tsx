@@ -49,7 +49,7 @@ const Home: NextPage<IHomeData> = ({ experience, projects, references }) => {
         </div>
 
         <div className="absolute top-1/2 -translate-y-1/2 left-[10%] z-30">
-          <h2 className="text-5xl md:text-6xl lg:text-7xl">
+          <h2 className="text-5xl md:text-6xl lg:text-7xl mb-3">
             I'm <span className="text-yellow-500">Hamude Shahin</span>.
           </h2>
           <p className="text-slate-400 max-w-md">
