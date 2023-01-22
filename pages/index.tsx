@@ -12,10 +12,17 @@ import AboutMeBox from "../components/utils/about-me-box";
 import Projects from "../components/sections/projects";
 import References from "../components/sections/references";
 import Connect from "../components/sections/connect";
+import {
+  IExperience,
+  IHomeData,
+  IProject,
+  IReferenceMessage,
+} from "../typings";
+import { urlFor } from "../sanity";
 
 const links: string[] = ["fa", "tw", "in", "is"];
 
-const Home: NextPage = () => {
+const Home: NextPage<IHomeData> = ({ experience, projects, references }) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -25,7 +32,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Create Next App</title>
+        <title>Hamude Shahin</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -53,8 +60,8 @@ const Home: NextPage = () => {
         <div className="absolute top-1/2 -translate-y-1/2 left-[1%] sm:left-[5%] z-30">
           <ul className="flex flex-col space-y-10">
             {links.map((link, index) => (
-              <li className="transform -rotate-90">
-                <SocialLink key={index}>{link}</SocialLink>
+              <li className="transform -rotate-90" key={index}>
+                <SocialLink>{link}</SocialLink>
               </li>
             ))}
           </ul>
@@ -67,37 +74,16 @@ const Home: NextPage = () => {
       <div className="py-10 bg-slate-700 relative">
         <Container>
           <h2 className="text-slate-400 text-2xl ml-10 z-40">Experiences:</h2>
-          <div className="grid grid-cols-6 sm:grid-cols-6 my-10">
-            <img
-              className="w-full h-48 object-contain"
-              src="/imgs/typescript.png"
-              alt=""
-            />
-            <img
-              className="w-full h-48 object-contain"
-              src="/imgs/typescript.png"
-              alt=""
-            />
-            <img
-              className="w-full h-48 object-contain"
-              src="/imgs/typescript.png"
-              alt=""
-            />
-            <img
-              className="w-full h-48 object-contain"
-              src="/imgs/typescript.png"
-              alt=""
-            />
-            <img
-              className="w-full h-48 object-contain"
-              src="/imgs/typescript.png"
-              alt=""
-            />
-            <img
-              className="w-full h-48 object-contain"
-              src="/imgs/typescript.png"
-              alt=""
-            />
+          <div className="grid grid-cols-6 my-10 space-x-4">
+            {experience?.map((item) => (
+              <div key={item._id} className="col-span-2 md:col-span-1">
+                <img
+                  className="w-full h-24 md:h-48 my-1 object-contain"
+                  src={urlFor(item.image).url()}
+                  alt={`Hamude Shahin Portfolio - ${item.title}`}
+                />
+              </div>
+            ))}
           </div>
           <div className="text-center">
             <A href={"/"}>
@@ -177,45 +163,40 @@ const Home: NextPage = () => {
       </div>
 
       {/* Projects */}
-      <Projects
-        items={[
-          {
-            img: "/imgs/medium.png",
-            name: "Medium Clone",
-            startDate: "Start Date",
-            endDate: "End Date",
-            role: "Fullstack Dev.",
-          },
-          {
-            img: "/imgs/typescript.png",
-            name: "Typescript Clone",
-            startDate: "Start Date",
-            endDate: "End Date",
-            role: "Fullstack Dev.",
-          },
-        ]}
-      />
+      <Projects items={projects} />
 
       {/* References */}
-      <References
-        items={[
-          {
-            name: "Adam Adam",
-            description:
-              "Hamude's talent and cares for his work delivered excellent results on all aspects of our project.",
-          },
-          {
-            name: "Adam2 Adam2",
-            description:
-              "Hamude's talent and cares for his work delivered excellent or his work delivered excellent results on all aspects of our project. talent and cares for his work delivered excellent results on all aspects of our project.",
-          },
-        ]}
-      />
+      <References items={references} />
 
       {/* Connect */}
       <Connect />
     </>
   );
+};
+
+export const getServerSideProps = async () => {
+  let experience: IExperience[] = [],
+    references: IReferenceMessage[] = [],
+    projects: IProject[] = [];
+  await fetch(process.env.NEXT_PUBLIC_API + "/api/hello")
+    .then((data) => data.json())
+    .then((jsData) => {
+      experience = jsData.experience;
+      references = jsData.references;
+      projects = jsData.projects;
+    })
+    .catch((err) => {
+      console.error("Error !!");
+      console.error(err);
+    });
+
+  return {
+    props: {
+      experience,
+      projects,
+      references,
+    },
+  };
 };
 
 export default Home;

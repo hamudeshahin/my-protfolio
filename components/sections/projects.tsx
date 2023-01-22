@@ -1,6 +1,7 @@
 import { FC, useCallback, useState } from "react";
+import { IProject } from "../../typings";
 import Container from "../utils/container";
-import ProjectItem, { IProject } from "./project-item";
+import ProjectItem from "./project-item";
 
 interface IProps {
   items: IProject[];
@@ -23,13 +24,14 @@ const Projects: FC<IProps> = ({ items }) => {
           <p className="text-center text-slate-500 mb-10">
             Here are some projects that i made.
           </p>
-          <div className="flex space-x-10">
+          <div className="flex space-x-2 md:space-x-10">
             <div className="flex-1">
               <ProjectItem active={active} items={items} />
             </div>
             <div className="w-[60px] flex flex-col items-center justify-center gap-5">
               {items.map((item, index) => (
                 <a
+                  key={index}
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();

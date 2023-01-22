@@ -2,14 +2,10 @@ import { FC, useCallback, useRef, useState } from "react";
 import Container from "../utils/container";
 import { BsArrowRight, BsArrowLeft } from "react-icons/bs";
 import Trail from "../animations/trail";
-
-interface IReference {
-  name: string;
-  description: string;
-}
+import { IReferenceMessage } from "../../typings";
 
 interface IProps {
-  items: IReference[];
+  items: IReferenceMessage[];
 }
 
 const References: FC<IProps> = ({ items }) => {
@@ -38,41 +34,47 @@ const References: FC<IProps> = ({ items }) => {
     []
   );
   return (
-    <div className="py-10 px-5 relative">
+    <div className="py-20 px-5 relative">
       <Container>
         <h2 className="text-3xl text-slate-400 font-bold mb-20">References</h2>
-        <div className="p-5 relative h-[400px]">
-          {items.map((item, index) => (
-            <Trail key={index} open={index === active}>
-              <div className={`${index === active ? "block" : "hidden"}`}>
-                <p className="text-4xl line-clamp-[8] mb-5 text-center max-w-4xl mx-auto">
-                  {item.description}
-                </p>
-                <h6 className="text-slate-500 pl-20">{item.name}</h6>
-              </div>
-            </Trail>
-          ))}
-          <div className="flex gap-10 absolute top-[100%] left-0 transform -translate-y-1/2 justify-center items-center w-full sm:justify-between sm:top-1/4">
-            <a
-              href="#"
-              onClick={(e) => handeChangeReferenceActive(e, active - 1, "-")}
-              className="transform transition-transform duration-200 hover:scale-125"
-            >
-              <span className="text-6xl text-slate-400 sm:text-7xl">
-                <BsArrowLeft />
-              </span>
-            </a>
-            <a
-              href="#"
-              onClick={(e) => handeChangeReferenceActive(e, active + 1, "+")}
-              className="transform transition-transform duration-200 hover:scale-125"
-            >
-              <span className="text-6xl text-slate-400 sm:text-7xl">
-                <BsArrowRight />
-              </span>
-            </a>
+        {items.length === 0 ? (
+          <h5 className="text-3xl text-center">
+            There is no references until now {`\u{1F605}`}
+          </h5>
+        ) : (
+          <div className="p-5 relative h-[400px]">
+            {items.map((item, index) => (
+              <Trail key={index} open={index === active}>
+                <div className={`${index === active ? "block" : "hidden"}`}>
+                  <p className="text-4xl line-clamp-[8] mb-5 text-center max-w-4xl mx-auto">
+                    {item.message}
+                  </p>
+                  <h6 className="text-slate-500 pl-20">{item.name}</h6>
+                </div>
+              </Trail>
+            ))}
+            <div className="flex gap-10 absolute top-[100%] left-0 transform -translate-y-1/2 justify-center items-center w-full sm:justify-between sm:top-1/4">
+              <a
+                href="#"
+                onClick={(e) => handeChangeReferenceActive(e, active - 1, "-")}
+                className="transform transition-transform duration-200 hover:scale-125"
+              >
+                <span className="text-6xl text-slate-400 sm:text-7xl">
+                  <BsArrowLeft />
+                </span>
+              </a>
+              <a
+                href="#"
+                onClick={(e) => handeChangeReferenceActive(e, active + 1, "+")}
+                className="transform transition-transform duration-200 hover:scale-125"
+              >
+                <span className="text-6xl text-slate-400 sm:text-7xl">
+                  <BsArrowRight />
+                </span>
+              </a>
+            </div>
           </div>
-        </div>
+        )}
       </Container>
       <div className="absolute w-40 h-40 right-[20%] opacity-20 top-20 transform rotate-6">
         <lottie-player

@@ -1,4 +1,11 @@
-import React, { FC, Fragment, useCallback, useRef, useState } from "react";
+import React, {
+  FC,
+  Fragment,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Container from "../utils/container";
 import { BsArrowRight, BsArrowLeft } from "react-icons/bs";
 import A from "../ui/link";
@@ -14,6 +21,7 @@ interface IConnectData {
 const Connect: FC = () => {
   const [started, setStarted] = useState<boolean>(false);
   const [inputFocus, setInputFocus] = useState<boolean>(false);
+  const [submitted, setSubmitted] = useState<boolean>(false);
   const [data, setData] = useState<IConnectData>({
     name: "",
     email: "",
@@ -27,6 +35,7 @@ const Connect: FC = () => {
    * 2 - message and submit !
    */
   const [step, setStep] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(false);
   // refs
   const inputRef = useRef<HTMLInputElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -43,14 +52,11 @@ const Connect: FC = () => {
 
   // focus input detect
   const handleInputOnFocus = useCallback(() => {
-    console.log("onput on focus");
     if (inputFocus) return;
     setInputFocus(true);
   }, [inputFocus]);
   // unfocus input detect
   const handleInputOnBlur = useCallback(() => {
-    console.log("Input On Blurs");
-    console.log(!inputRef?.current?.value);
     if (
       !inputFocus ||
       inputRef?.current?.value ||
@@ -96,8 +102,6 @@ const Connect: FC = () => {
         newData.message = data;
         return { ...newData };
       });
-      alert("Message Sent !");
-      setStep(1000);
     }
 
     if (isOk) {
@@ -107,8 +111,40 @@ const Connect: FC = () => {
     }
   }, [step]);
 
-  console.log("step");
-  console.log(step);
+  // connect api
+  const startApi = useCallback(() => {
+    console.log("APIII");
+    console.log("data");
+    console.table(data);
+    setLoading(true);
+    fetch("/api/create-message", {
+      method: "POST",
+      body: JSON.stringify(data),
+    })
+      .then((res) => {
+        setLoading(false);
+        if (res.ok) {
+          setSubmitted(true);
+          setStep(1000);
+          console.log("res");
+          console.log(res);
+        } else {
+          alert("something went wrong !");
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        // means that form submitted
+
+        alert(err.toString());
+      });
+  }, [data]);
+
+  useEffect(() => {
+    if (data.name && data.email && data.message && !submitted) {
+      startApi();
+    }
+  }, [data]);
 
   return (
     <div className="p-5 py-20">
@@ -166,7 +202,7 @@ const Connect: FC = () => {
                     {step === 0 && (
                       <Fragment>
                         <label
-                          className={`absolute text-2xl -z-0 transition-all left-2 transform -translate-y-1/2 ${
+                          className={`absolute text-lg md:text-2xl -z-0 transition-all left-2 transform -translate-y-1/2 ${
                             inputFocus === true ? "-top-1/2" : "top-1/2"
                           }`}
                         >
@@ -181,7 +217,7 @@ const Connect: FC = () => {
                         </label>
                         <input
                           type="text"
-                          className={`h-16 text-2xl w-full border border-x-0 border-y-0 border-b-2 bg-transparent outline-none relative ${
+                          className={`h-10 md:h-16 text-lg md:text-2xl w-full border border-x-0 border-y-0 border-b-2 bg-transparent outline-none relative ${
                             inputFocus ? "text-opacity-100" : "text-opacity-0"
                           }`}
                           ref={inputRef}
@@ -193,7 +229,7 @@ const Connect: FC = () => {
                     {step === 1 && (
                       <Fragment>
                         <label
-                          className={`absolute text-2xl -z-0 transition-all left-2 transform -translate-y-1/2 ${
+                          className={`absolute text-lg md:text-2xl -z-0 transition-all left-2 transform -translate-y-1/2 ${
                             inputFocus === true ? "-top-1/2" : "top-1/2"
                           }`}
                         >
@@ -208,7 +244,7 @@ const Connect: FC = () => {
                         </label>
                         <input
                           type="text"
-                          className={`h-16 text-2xl w-full border border-x-0 border-y-0 border-b-2 bg-transparent outline-none relative ${
+                          className={`h-10 md:h-16 text-lg md:text-2xl w-full border border-x-0 border-y-0 border-b-2 bg-transparent outline-none relative ${
                             inputFocus ? "text-opacity-100" : "text-opacity-0"
                           }`}
                           ref={inputRef}
@@ -220,7 +256,7 @@ const Connect: FC = () => {
                     {step === 2 && (
                       <Fragment>
                         <label
-                          className={`absolute text-2xl -z-0 transition-all left-2 transform -translate-y-1/2 ${
+                          className={`absolute text-lg md:text-2xl -z-0 transition-all left-2 transform -translate-y-1/2 ${
                             inputFocus === true ? "-top-1/2" : "top-1/2"
                           }`}
                         >
@@ -234,7 +270,7 @@ const Connect: FC = () => {
                           />
                         </label>
                         <textarea
-                          className={`h-16 text-2xl w-full border border-x-0 border-y-0 border-b-2 bg-transparent outline-none relative ${
+                          className={`h-10 md:h-16 text-lg md:text-2xl w-full border border-x-0 border-y-0 border-b-2 bg-transparent outline-none relative ${
                             inputFocus ? "text-opacity-100" : "text-opacity-0"
                           }`}
                           rows={6}
@@ -244,15 +280,23 @@ const Connect: FC = () => {
                         />
                       </Fragment>
                     )}
-                    {step === 1000 && (
+                    {submitted && (
                       <div className="bg-green-500 bg-opacity-20 text-green-500 border border-green-500 p-2 pl-10 before:content-['✅'] before:inline-block before:mr-2">
                         Message has been sent successfully !
                       </div>
                     )}
                   </div>
-                  {step !== 1000 && (
-                    <Button type="warning" onClick={handleNextStep}>
-                      {step < 2 ? <>Next</> : <>Send</>}
+                  {!submitted && (
+                    <Button
+                      type="warning"
+                      className={`${loading ? "animate-pulse opacity-30" : ""}`}
+                      onClick={handleNextStep}
+                    >
+                      {!loading ? (
+                        <>{step < 2 ? <>Next</> : <>Send</>}</>
+                      ) : (
+                        <>Sending ...</>
+                      )}
                     </Button>
                   )}
                 </div>
