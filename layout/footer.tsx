@@ -12,9 +12,9 @@ const Footer: FC = () => {
         </h2>
         <div className="flex gap-5 justify-center">
           <A href="/">Home</A>
-          <A href="/">Blogs</A>
+          <A href="/blogs">Blogs</A>
           <A href="/">Case Study</A>
-          <A href="mailto:hamedsahin2018@icloud.com">Icloud Mail</A>
+          <A href="mailto:hamedsahin2018@icloud.com">Email</A>
         </div>
         <span className="text-slate-400">
           {`\u00A9\uFE0F`}COPYRIGHT - {new Date().getFullYear()}

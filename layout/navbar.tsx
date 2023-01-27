@@ -18,7 +18,7 @@ export const Links: ILink[] = [
   },
   {
     title: "Blogs",
-    href: "/",
+    href: "/blogs",
   },
 ];
 
